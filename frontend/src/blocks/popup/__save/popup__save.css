@@ -1,0 +1,30 @@
+.popup__save {
+    width: 100%;
+    height: 50px;
+    background-color: #000;
+    color: white;
+    margin-top: 48px;
+    margin-bottom: 37px;
+    font-family: 'Inter', sans-serif;
+    border-radius: 2px;
+    font-size: 18px;
+    line-height: 21.78px;
+    border: none;
+    transition: opacity 335ms ease-in;
+}
+
+.popup__save:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 320px) and (max-width: 426px) {
+    .popup__save {
+        width: 100%;
+        height: 46px;
+        margin-top: 45px;
+        font-size: 14px;
+        line-height: 16.94px;
+        margin-bottom: 25px;
+    }
+}

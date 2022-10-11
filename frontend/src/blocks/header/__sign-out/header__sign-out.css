@@ -1,0 +1,13 @@
+.header__sign-out {
+    cursor: pointer;
+    color: #fff;
+    padding: 0;
+    border: none;
+    font: inherit;
+    
+    background-color: black;
+}
+
+.header__sign-out:hover {
+    opacity: .6;
+}
