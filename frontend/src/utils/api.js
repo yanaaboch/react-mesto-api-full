@@ -1,3 +1,5 @@
+import { BASE_URL } from "./auth";
+
 class Api {
     constructor({ baseUrl, headers }) {
       this.baseUrl = baseUrl;
@@ -13,6 +15,7 @@ class Api {
   
     getInitialCards() {
       return fetch(this.baseUrl + "/cards", {
+        credentials: 'include',
         headers: this.headers,
       }).then(this._checkResponse);
     }
@@ -20,6 +23,7 @@ class Api {
     addCard({ name, link }) {
       return fetch(this.baseUrl + "/cards", {
         method: "POST",
+        credentials: 'include',
         headers: this.headers,
         body: JSON.stringify({
           name: name,
@@ -31,6 +35,7 @@ class Api {
   
     getUser() {
       return fetch(this.baseUrl + "/users/me", {
+        credentials: 'include',
         headers: this.headers,
       }).then(this._checkResponse);
     }
@@ -38,6 +43,7 @@ class Api {
     setUserInfo({ title, subtitle }) {
       return fetch(this.baseUrl + "/users/me", {
         method: "PATCH",
+        credentials: 'include',
         headers: this.headers,
         body: JSON.stringify({
           name: title,
@@ -50,6 +56,7 @@ class Api {
     setUserAvatar({ subtitle }) {
       return fetch(this.baseUrl + "/users/me/avatar", {
         method: "PATCH",
+        credentials: 'include',
         headers: this.headers,
         body: JSON.stringify({
           avatar: subtitle,
@@ -60,6 +67,7 @@ class Api {
     delete(id) {
       return fetch(this.baseUrl + `/cards/${id}`, {
         method: "DELETE",
+        credentials: 'include',
         headers: this.headers,
       }).then(this._checkResponse);
     }
@@ -81,6 +89,7 @@ class Api {
    changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
       method: `${!isLiked ? 'DELETE' : 'PUT'}`,
+      credentials: 'include',
       headers: this.headers
     })
       .then(res => this._checkResponse(res));
@@ -92,9 +101,8 @@ class Api {
   }
   
   const api = new Api({
-    baseUrl: "https://mesto.nomoreparties.co/v1/cohort-44",
+    baseUrl: BASE_URL,
     headers: {
-      authorization: "4e5f3876-9ff7-4342-831e-4075e38e0477",
       "Content-Type": "application/json",
     },
   });
