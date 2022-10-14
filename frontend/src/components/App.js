@@ -214,8 +214,8 @@ React.useEffect(() => {
   };
 
   React.useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     tokenCheck();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   React.useEffect(() => {
