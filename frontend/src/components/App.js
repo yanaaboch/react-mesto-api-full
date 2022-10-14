@@ -214,11 +214,13 @@ React.useEffect(() => {
   };
 
   React.useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     tokenCheck();
   }, []);
 
   React.useEffect(() => {
     if (isLoggedIn) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       history.push('/');
     }
   }, [isLoggedIn]);
