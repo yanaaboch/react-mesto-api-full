@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://auth.nomoreparties.co';
+export const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://localhost:3000';
 
 const checkResponse = (response) => {
   return response.ok
