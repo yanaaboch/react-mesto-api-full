@@ -220,9 +220,9 @@ React.useEffect(() => {
 
   React.useEffect(() => {
     if (isLoggedIn) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       history.push('/');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
   return (
