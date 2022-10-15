@@ -216,7 +216,7 @@ React.useEffect(() => {
   React.useEffect(() => {
     tokenCheck();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [history]);
 
   React.useEffect(() => {
     if (isLoggedIn) {

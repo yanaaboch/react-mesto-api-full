@@ -10,6 +10,7 @@ const checkResponse = (response) => {
 
 const headers = {
   Accept: 'application/json',
+  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
   'Content-Type': 'application/json',
 };
 
@@ -37,7 +38,7 @@ export const getContent = (token) => {
     credentials: 'include',
     headers: {
       ...headers,
-      Authorization: `Bearer ${token}`,
+      authorization: `Bearer ${token}`,
     },
   }).then((res) => checkResponse(res));
 };
