@@ -1,10 +1,9 @@
 import { BASE_URL } from "./auth";
 
 class Api {
-    constructor({ baseUrl, headers }) {
-      this._baseUrl = baseUrl;
-      this._headers = headers;
-    }
+  constructor(options) {
+    this._baseUrl = options.baseUrl;
+  }
   
     _checkResponse(res) {
       if (res.ok) {
@@ -13,18 +12,22 @@ class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     }
   
-    getInitialCards() {
-      return fetch(this._baseUrl + "/cards", {
-        //credentials: 'include',
-        headers: this._headers,
+    getInitialCards(jwt) {
+      return fetch(`${this._baseUrl}/cards`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt}`,
+        }
       }).then(this._checkResponse);
     }
   
-    addCard({ name, link }) {
-      return fetch(this._baseUrl + "/cards", {
-        method: "POST",
-        //credentials: 'include',
-        headers: this._headers,
+    addCard({ name, link }, jwt) {
+      return fetch(`${this._baseUrl}/cards`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt}`,
+        },
         body: JSON.stringify({
           name: name,
           link: link,
@@ -34,17 +37,19 @@ class Api {
     }
   
     getUser() {
-      return fetch(this._baseUrl + "/users/me", {
-        //credentials: 'include',
+      return fetch(`${this._baseUrl}/users/me`, {
+        credentials: 'include',
         headers: this._headers,
       }).then(this._checkResponse);
     }
   
-    setUserInfo({ title, subtitle }) {
-      return fetch(this._baseUrl + "/users/me", {
-        method: "PATCH",
-        //credentials: 'include',
-        headers: this._headers,
+    setUserInfo({ title, subtitle }, jwt) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt}`,
+        },
         body: JSON.stringify({
           name: title,
           about: subtitle,
@@ -53,22 +58,27 @@ class Api {
     }
 
 
-    setUserAvatar({ subtitle }) {
+    setUserAvatar({ subtitle }, jwt) {
       return fetch(this._baseUrl + "/users/me/avatar", {
         method: "PATCH",
         //credentials: 'include',
-        headers: this._headers,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt}`,
+        },
         body: JSON.stringify({
           avatar: subtitle,
         }),
       }).then(this._checkResponse);
     }
   
-    delete(id) {
-      return fetch(this._baseUrl + `/cards/${id}`, {
-        method: "DELETE",
-        //credentials: 'include',
-        headers: this._headers,
+    delete(id, jwt) {
+      return fetch(`${this._baseUrl}/cards/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${jwt}`,
+        },
       }).then(this._checkResponse);
     }
   
@@ -86,11 +96,14 @@ class Api {
    //   }).then(this._checkResponse);
    // }
 
-   changeLikeCardStatus(cardId, isLiked) {
+   changeLikeCardStatus(cardId, isLiked, jwt) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: `${!isLiked ? 'DELETE' : 'PUT'}`,
       //credentials: 'include',
-      headers: this._headers
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwt}`,
+      },
     })
       .then(res => this._checkResponse(res));
   }
