@@ -30,15 +30,6 @@ app.use(cors({
   origin: ['http://yanaaboch.mesto.nomoredomains.icu', 'https://yanaaboch.mesto.nomoredomains.icu', 'http://localhost:3000', 'https://localhost:3000'],
   credentials: true,
 }));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS');
-  if (req.method === 'OPTIONS') {
-    res.send(200);
-  }
-  next();
-});
 
 app.use(requestLogger);
 
