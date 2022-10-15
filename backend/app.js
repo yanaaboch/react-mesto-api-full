@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
-const cors = require('cors');
+const cors = require('./middlewares/cors');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
 const { createUser, login } = require('./controllers/users');
@@ -26,10 +26,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(cors({
-  origin: ['http://yanaaboch.mesto.nomoredomains.icu', 'https://yanaaboch.mesto.nomoredomains.icu', 'http://localhost:3000', 'https://localhost:3000'],
-  credentials: true,
-}));
+app.use(cors);
 
 app.use(requestLogger);
 
