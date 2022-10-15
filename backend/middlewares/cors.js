@@ -1,7 +1,8 @@
 const allowedCors = [
   'http://yanaaboch.mesto.nomoredomains.icu',
   'https://yanaaboch.mesto.nomoredomains.icu',
-  'localhost:3000',
+  'http://localhost:3000',
+  'https://localhost:3000',
 ];
 
 const DEFAULT_ALLOWED_METHODS = 'GET,HEAD,PUT,PATCH,POST,DELETE';
