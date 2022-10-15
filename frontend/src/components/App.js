@@ -164,7 +164,7 @@ React.useEffect(() => {
   const handleRegistration = (data) => {
     return auth
       .register(data)
-      .then((data) => {
+      .then(() => {
         setIsRegistrationSuccessful(true);
         history.push('/sign-in');
       })
@@ -206,7 +206,7 @@ React.useEffect(() => {
     auth
       .getContent(jwt)
       .then((data) => {
-        setAuthorizationEmail(data.data.email);
+        setAuthorizationEmail(data.email);
         setIsLoggedIn(true);
         history.push('/');
       })
