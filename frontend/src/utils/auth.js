@@ -1,4 +1,4 @@
-export const BASE_URL = process.env.REACT_APP_BASE_URL || 'https://localhost:3000';
+export const BASE_URL = 'https://api.mesto.yanaaboch.nomoredomains.icu';
 
 const checkResponse = (response) => {
   return response.ok
