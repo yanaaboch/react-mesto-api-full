@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const helmet = require('helmet');
 const cors = require('cors');
 const auth = require('./middlewares/auth');
 const errorHandler = require('./middlewares/errorHandler');
@@ -32,6 +33,8 @@ app.use(cors({
 }));
 
 app.use(requestLogger);
+
+app.use(helmet());
 
 app.get('/crash-test', () => {
   setTimeout(() => {
