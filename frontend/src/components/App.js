@@ -161,9 +161,9 @@ React.useEffect(() => {
 }, [isOpen]) 
 
 
-  const handleRegistration = (email, password) => {
+  const handleRegistration = (data) => {
     return auth
-      .register(email, password)
+      .register(data)
       .then(() => {
         setIsRegistrationSuccessful(true);
         history.push('/signin');
