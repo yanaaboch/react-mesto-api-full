@@ -39,7 +39,7 @@ const Register = ({ onRegister }) => {
             name="password"
             type="password"
             placeholder="Пароль"
-            value={registerData.email}
+            value={registerData.password}
             onChange={handleChange}
             required
           />
