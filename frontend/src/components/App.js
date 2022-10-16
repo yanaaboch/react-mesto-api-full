@@ -166,7 +166,7 @@ React.useEffect(() => {
       .register(data)
       .then(() => {
         setIsRegistrationSuccessful(true);
-        history.push('/sign-in');
+        history.push('/signin');
       })
       .catch((err) => {
         console.log(err);

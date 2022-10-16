@@ -47,7 +47,7 @@ const Register = ({ onRegister }) => {
           <button type="submit">Зарегистрироваться</button>
         </form>
       </div>
-      <Link to="/sign-in" className="auth__login-hint">
+      <Link to="/signin" className="auth__login-hint">
         Уже зарегистрированы? Войти
       </Link>
     </>
