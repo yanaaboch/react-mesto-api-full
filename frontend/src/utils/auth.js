@@ -8,19 +8,16 @@ const checkResponse = (response) => {
       );
 };
 
-//const headers = {
-//  Accept: 'application/json',
-//  'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-//  'Content-Type': 'application/json',
-//};
+const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+};
 
 export const register = ({ email, password }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
    // credentials: 'include',
-   headers: {
-    'Content-Type': 'application/json',
-  },
+   headers,
     body: JSON.stringify({ email, password }),
   }).then((res) => checkResponse(res));
 };
@@ -29,9 +26,7 @@ export const authorize = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
     //credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({ email, password }),
   }).then((res) => checkResponse(res));
 };
@@ -41,8 +36,8 @@ export const getContent = (token) => {
     method: 'GET',
    // credentials: 'include',
    headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  },
+    ...headers,
+    authorization: `Bearer ${token}`,
+   },
   }).then((res) => checkResponse(res));
 };
