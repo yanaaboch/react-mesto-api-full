@@ -61,7 +61,7 @@ class Api {
     setUserAvatar({ subtitle }, jwt) {
       return fetch(this._baseUrl + "/users/me/avatar", {
         method: "PATCH",
-        //credentials: 'include',
+        // credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${jwt}`,
