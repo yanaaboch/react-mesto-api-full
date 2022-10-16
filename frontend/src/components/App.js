@@ -194,7 +194,7 @@ React.useEffect(() => {
   const handleSignOut = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('jwt');
-    history.push('/sign-in');
+    history.push('/signin');
   };
 
 
@@ -230,10 +230,10 @@ React.useEffect(() => {
      <div className="page">
         <Header loggedIn={isLoggedIn} userEmail={authorizationEmail} onSignOut={handleSignOut} />
         <Switch>
-          <Route path="/sign-in">
+          <Route path="/signin">
             <Login onLogin={handleAuthorization} />
           </Route>
-          <Route path="/sign-up">
+          <Route path="/signup">
             <Register onRegister={handleRegistration} />
           </Route>
           <ProtectedRoute
