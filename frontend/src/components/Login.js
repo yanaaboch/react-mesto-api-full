@@ -1,23 +1,23 @@
-import { useState } from 'react';
+import { useForm } from 'react';
 
 
 const Login = ({ onLogin }) => {
-    const [loginData, setLoginData] = useState({});
+  const { enteredValues, handleChange } = useForm({});
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setLoginData({
-        ...loginData,
-      [name]: value,
-    });
-  };
+  //const handleChange = (event) => {
+  //  const { name, value } = event.target;
+   // setLoginData({
+   //     ...loginData,
+   //   [name]: value,
+    //});
+  //};
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!loginData.email || !loginData.password) {
+    if (!enteredValues.email || !enteredValues.password) {
       return;
     }
-    onLogin(loginData);
+    onLogin(enteredValues);
   };
     return (
         <div className="auth">
@@ -29,18 +29,17 @@ const Login = ({ onLogin }) => {
           name="email"
           id="email"
           autoComplete="email"
-          value={loginData.email || ''}
+          value={enteredValues.email || ''}
           onChange={handleChange}
           required
         />
         <input
           type="password"
-          minLength="8"
           placeholder="Пароль"
           name="password"
           id="password"
           autoComplete="password"
-          value={loginData.password || ''}
+          value={enteredValues.password || ''}
           onChange={handleChange}
           required
         />

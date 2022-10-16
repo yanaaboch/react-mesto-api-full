@@ -36,32 +36,40 @@ const [isRegistrationSuccessful, setIsRegistrationSuccessful] = React.useState(f
 const [authorizationEmail, setAuthorizationEmail] = React.useState('');
 const history = useHistory();
 
-React.useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-}, []);
+//React.useEffect(() => {
+//    api
+//      .getInitialCards()
+//      .then((data) => {
+//        setCards(data);
+ //     })
+ //     .catch((err) => {
+ //       console.log(`Ошибка: ${err}`);
+ //     });
+//}, []);
+
+//React.useEffect(() => {
+ //   api
+ //     .getUser()
+  //    .then((data) => {
+  //      setCurrentUser(data);
+  //      setAuthorizationEmail(data.email)
+  //    })
+  //    .catch((err) => {
+  //      console.log(`Ошибка: ${err}`);
+  //    });
+//}, []);
 
 React.useEffect(() => {
-    api
-      .getUser()
-      .then((data) => {
-        setCurrentUser(data);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
-      });
-}, []);
+  tokenCheck()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [history])
+
 
 function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  const isLiked = card.likes.some((i) => i === currentUser._id);
+  const jwt = localStorage.getItem('jwt');
     api
-      .changeLikeCardStatus(card._id, !isLiked)
+      .changeLikeCardStatus(card._id, !isLiked, jwt)
       .then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
@@ -73,7 +81,8 @@ function handleCardLike(card) {
 }
 
 function handleCardDelete(cardId) {
-    api.delete(cardId)
+  const jwt = localStorage.getItem('jwt');
+    api.delete(cardId, jwt)
     .then(() => {
       setCards((cards) => cards.filter(card => card._id !== cardId));
     })
@@ -100,7 +109,8 @@ const handleCardClick = card => {
 };
 
 const handleUpdateUser = (newUserInfo) => {
-    api.setUserInfo(newUserInfo)
+  const jwt = localStorage.getItem('jwt');
+    api.setUserInfo(newUserInfo, jwt)
     .then((data) => {
       setCurrentUser(data)
       closeAllPopups();
@@ -111,7 +121,8 @@ const handleUpdateUser = (newUserInfo) => {
 };
 
 const handleUpdateAvatar = (data) => {
-    api.setUserAvatar(data)
+  const jwt = localStorage.getItem('jwt');
+    api.setUserAvatar(data, jwt)
     .then((data) => {
       setCurrentUser(data);
       closeAllPopups();
@@ -122,7 +133,8 @@ const handleUpdateAvatar = (data) => {
 };
 
 const handleAddPlaceSubmit = (newData) => {
-    api.addCard(newData)
+  const jwt = localStorage.getItem('jwt');
+    api.addCard(newData, jwt)
     .then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
@@ -183,6 +195,7 @@ React.useEffect(() => {
       .then((data) => {
         setIsLoggedIn(true);
         localStorage.setItem('jwt', data.token);
+        tokenCheck();
         history.push('/');
       })
       .catch((err) => {
@@ -192,9 +205,11 @@ React.useEffect(() => {
   };
 
   const handleSignOut = () => {
-    setIsLoggedIn(false);
     localStorage.removeItem('jwt');
     history.push('/signin');
+    setIsLoggedIn(false);
+    setCurrentUser({});
+    setAuthorizationEmail('');
   };
 
 
@@ -207,23 +222,25 @@ React.useEffect(() => {
       .getContent(jwt)
       .then((data) => {
         setAuthorizationEmail(data.email);
+        setCurrentUser(data);
         setIsLoggedIn(true);
         history.push('/');
       })
       .catch((err) => console.log(err));
+      api
+      .getInitialCards(jwt)
+      .then((initialCards) => {
+        setCards(initialCards)
+      })
+      .catch((err) => console.log(err));
   };
-
-  React.useEffect(() => {
-    tokenCheck();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [history]);
 
   React.useEffect(() => {
     if (isLoggedIn) {
       history.push('/');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
+  }, [isLoggedIn, history]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

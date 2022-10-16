@@ -1,23 +1,23 @@
-import { useState } from 'react';
+import { useForm } from 'react';
 import { Link } from 'react-router-dom';
 
 const Register = ({ onRegister }) => {
-    const [registerData, setRegisterData] = useState({
+    const { enteredValues, handleChange } = useForm({
         email: '',
         password: '',
       });
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setRegisterData({
-            ...registerData,
-        [name]: value,
-    });
-    };
+    //const handleChange = (event) => {
+    //    const { name, value } = event.target;
+    //    setRegisterData({
+    //        ...registerData,
+    //    [name]: value,
+    //});
+    //};
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        onRegister(registerData);
+        onRegister(enteredValues);
     };
 
     return (
@@ -30,7 +30,7 @@ const Register = ({ onRegister }) => {
             name="email"
             type="email"
             placeholder="Email"
-            value={registerData.email}
+            value={enteredValues.email}
             onChange={handleChange}
             required
           />
@@ -38,9 +38,8 @@ const Register = ({ onRegister }) => {
             id="password"
             name="password"
             type="password"
-            min="8"
             placeholder="Пароль"
-            value={registerData.email}
+            value={enteredValues.email}
             onChange={handleChange}
             required
           />
