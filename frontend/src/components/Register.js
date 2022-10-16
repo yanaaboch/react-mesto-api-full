@@ -1,8 +1,8 @@
-import { useForm } from 'react-hook-form';
+import { React } from 'react';
 import { Link } from 'react-router-dom';
 
 const Register = ({ onRegister }) => {
-    const { enteredValues, handleChange } = useForm({
+    const { enteredValues, handleChange } = React.useForm({
         email: '',
         password: '',
       });
