@@ -1,23 +1,23 @@
-import React from "react";
+import { useState } from 'react';
 
 
 const Login = ({ onLogin }) => {
-  const { enteredValues, handleChange } = React.useForm({});
+  const [loginData, setLoginData] = useState({});
 
-  //const handleChange = (event) => {
-  //  const { name, value } = event.target;
-   // setLoginData({
-   //     ...loginData,
-   //   [name]: value,
-    //});
-  //};
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setLoginData({
+        ...loginData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!enteredValues.email || !enteredValues.password) {
+    if (!loginData.email || !loginData.password) {
       return;
     }
-    onLogin(enteredValues);
+    onLogin(loginData);
   };
     return (
         <div className="auth">
@@ -29,7 +29,7 @@ const Login = ({ onLogin }) => {
           name="email"
           id="email"
           autoComplete="email"
-          value={enteredValues.email || ''}
+          value={loginData.email || ''}
           onChange={handleChange}
           required
         />
@@ -39,7 +39,7 @@ const Login = ({ onLogin }) => {
           name="password"
           id="password"
           autoComplete="password"
-          value={enteredValues.password || ''}
+          value={loginData.password || ''}
           onChange={handleChange}
           required
         />
