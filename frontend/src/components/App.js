@@ -201,6 +201,7 @@ React.useEffect(() => {
       .catch((err) => {
         console.log(err);
         handleInfoTooltip();
+        setIsRegistrationSuccessful(false);
       });
   };
 
